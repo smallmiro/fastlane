@@ -1,0 +1,4 @@
+# In general, you can use the options available
+# unity3d --help
+
+output_directory "./"

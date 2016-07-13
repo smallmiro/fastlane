@@ -1,0 +1,6 @@
+#!/usr/bin/env ruby
+$LOAD_PATH.push File.expand_path("../../lib", __FILE__)
+
+require "unity3d"
+require "unity3d/commands_generator"
+Unity3d::CommandsGenerator.start

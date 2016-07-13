@@ -1,15 +1,15 @@
 # coding: utf-8
 lib = File.expand_path("../lib", __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require "gym/version"
+require "unity3d/version"
 
-Gem::Specification.new do |spec|
-  spec.name          = "gym"
-  spec.version       = Gym::VERSION
+Unity3d::Specification.new do |spec|
+  spec.name          = "unity3d"
+  spec.version       = Unity3d::VERSION
   spec.authors       = ["Felix Krause"]
   spec.email         = ["gym@krausefx.com"]
-  spec.summary       = Gym::DESCRIPTION
-  spec.description   = Gym::DESCRIPTION
+  spec.summary       = Unity3d::DESCRIPTION
+  spec.description   = Unity3d::DESCRIPTION
   spec.homepage      = "https://fastlane.tools"
   spec.license       = "MIT"
 
