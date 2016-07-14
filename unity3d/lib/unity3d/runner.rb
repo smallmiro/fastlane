@@ -11,19 +11,25 @@ module Unity3d
     def run
       
       print_command(command, "Export " + Unity3d.config[:buildTarget]) if $verbose
-
-      logThread = Thread.new do # Here we start a new thread
-        File.open(BuildCommandGenerator.unity3d_log_path) do |log|
-          log.extend(File::Tail)
-          log.interval = 2
-          log.backward(0)
-          log.tail { |line| UI.message line.delete!("\n") }
-        end
-        return nil
+      if !Unity3d.config[:silent]
+        logThread = Thread.new do # Here we start a new thread
+          File.open(BuildCommandGenerator.unity3d_log_path) do |log|
+            log.extend(File::Tail)
+            log.interval = 1
+            log.backward(0)
+            log.tail { |line|
+              if line.include? "WARNING"
+                UI.important line.delete!("\n") 
+              else 
+                UI.message line.delete!("\n")    
+              end 
+              }
+          end
+          return nil
+        end 
       end 
-      
       build_app
-      logThread.exit
+      #logThread.exit
 
     end
 
@@ -70,8 +76,9 @@ module Unity3d
                                               error: proc do |output|
                                                 ErrorHandler.handle_build_error(output)
                                               end)
-\
-      UI.success "Successfully stored the archive. You can find it in the Xcode Organizer."
+
+
+      UI.success "Successfully stored the archive."
       #UI.verbose("Stored the archive in: " + BuildCommandGenerator.archive_path)
     end
 

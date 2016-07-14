@@ -3,6 +3,7 @@ require 'unity3d/manager'
 require 'unity3d/options'
 require 'unity3d/detect_values'
 require 'unity3d/runner'
+require 'Unity3d/error_handler'
 require 'unity3d/generators/build_command_generator'
 
 require 'fastlane_core'

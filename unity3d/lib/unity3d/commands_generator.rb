@@ -27,7 +27,7 @@ module Unity3d
     def run
       program :version, Unity3d::VERSION
       program :description, Unity3d::DESCRIPTION
-      program :help, "Author", "Junhwan Oh <rerun@naver.com>"
+      program :help, "Author", "Junhwan Oh <junhwan.oh@nhnent.com>"
       program :help, "Website", "https://fastlane.tools"
       program :help, "GitHub", "https://github.com/smallmiro/fastlane/tree/master/unity3d"
       program :help_formatter, :compact

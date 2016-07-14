@@ -6,8 +6,8 @@ require "unity3d/version"
 Unity3d::Specification.new do |spec|
   spec.name          = "unity3d"
   spec.version       = Unity3d::VERSION
-  spec.authors       = ["Felix Krause"]
-  spec.email         = ["gym@krausefx.com"]
+  spec.authors       = ["Junhwan Oh"]
+  spec.email         = ["junhwan.oh@nhnent.com"]
   spec.summary       = Unity3d::DESCRIPTION
   spec.description   = Unity3d::DESCRIPTION
   spec.homepage      = "https://fastlane.tools"
@@ -15,7 +15,7 @@ Unity3d::Specification.new do |spec|
 
   spec.required_ruby_version = ">= 2.0.0"
 
-  spec.files = Dir["lib/**/*"] + %w(bin/gym bin/💪 README.md LICENSE)
+  spec.files = Dir["lib/**/*"] + %w(bin/unity3d README.md LICENSE)
 
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})

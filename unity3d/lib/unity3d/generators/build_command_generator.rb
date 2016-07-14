@@ -5,8 +5,9 @@ module Unity3d
   class BuildCommandGenerator
     class << self
       def generate
+        config = Unity3d.config
         parts = prefix
-        parts << "/Applications/Unity/Unity.app/Contents/MacOS/Unity"
+        parts << "#{config[:unityPath]}/Contents/MacOS/Unity"
         parts += options
         parts += pipe
 
@@ -25,10 +26,10 @@ module Unity3d
         options << "-quit "
         
         options << "-serial '#{config[:serial]}'" if config[:serial]
-        options << "-projectPath '#{config[:projectPath]}'" if config[:projectPath]
+        options << "-projectPath '#{config[:project]}'" if config[:project]
         options << "-buildTarget '#{config[:buildTarget]}'" if config[:buildTarget]
         options << "-executeMethod '#{config[:executeMethod]}'" if config[:executeMethod]
-        options << "-logFile '#{config[:projectPath]}/#{config[:logFile]}'" if config[:logFile]
+        options << "-logFile '#{config[:project]}/#{config[:logFile]}'" if config[:logFile]
         #options << "-configuration '#{config[:configuration]}'" if config[:configuration]
         
         options
@@ -36,6 +37,7 @@ module Unity3d
 
 
       def pipe
+
         pipe = []
         pipe << " > /dev/null" 
 
