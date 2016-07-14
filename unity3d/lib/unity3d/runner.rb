@@ -11,7 +11,9 @@ module Unity3d
     def run
       
       print_command(command, "Export " + Unity3d.config[:buildTarget]) if $verbose
-      if !Unity3d.config[:silent]
+
+      UI.important BuildCommandGenerator.unity3d_log_path
+      #if !Unity3d.config[:silent]
         logThread = Thread.new do # Here we start a new thread
           File.open(BuildCommandGenerator.unity3d_log_path) do |log|
             log.extend(File::Tail)
@@ -27,7 +29,7 @@ module Unity3d
           end
           return nil
         end 
-      end 
+      #end 
       build_app
       #logThread.exit
 

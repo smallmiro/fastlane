@@ -46,7 +46,7 @@ module Unity3d
 
       def unity3d_log_path
         file_name = "#{Unity3d.config[:logFile]}"
-        containing = File.expand_path(Unity3d.config[:projectPath])
+        containing = File.expand_path(Unity3d.config[:project])
         FileUtils.mkdir_p(containing)
 
         return File.join(containing, file_name)
