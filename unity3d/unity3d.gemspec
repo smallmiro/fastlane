@@ -3,7 +3,7 @@ lib = File.expand_path("../lib", __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require "unity3d/version"
 
-Unity3d::Specification.new do |spec|
+Gem::Specification.new do |spec|
   spec.name          = "unity3d"
   spec.version       = Unity3d::VERSION
   spec.authors       = ["Junhwan Oh"]
