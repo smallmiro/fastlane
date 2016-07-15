@@ -1,6 +1,6 @@
 module Fastlane
   module Actions
-    class ScanAction < Action
+    class Unity3dAction < Action
       def self.run(values)
         require 'unity3d'
 
