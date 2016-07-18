@@ -12,17 +12,20 @@ module Unity3d
         FastlaneCore::ConfigItem.new(key: :project,
                                      short_option: "-w",
                                      env_name: "UNITY3D_PROJECT_PATH",
-                                     description: "Open the project at the given path"),              
+                                     description: "Open the project at the given path",
+                                     verify_block: proc do |value|
+                                        v = File.expand_path(value.to_s)
+                                        UI.user_error!("Project Path not found at path '#{v}'") unless File.exist?(v)
+                                     end),              
         FastlaneCore::ConfigItem.new(key: :unityPath,
                                      env_name: "UNITY3D_APP_PATH",
                                      optional: true,
                                      default_value: "/Applications/Unity/Unity.app",
-                                     description: "Install path of Unity3d"),     
-        FastlaneCore::ConfigItem.new(key: :executeMethod ,
-                                     short_option: "-m",
-                                     optional: true,
-                                     env_name: "UNITY3D_EXECUTE_METHOD",
-                                     description: "Execute the static method as soon as Unity is started, the project is open and after the optional asset server update has been performed"),
+                                     description: "Install path of Unity3d",
+                                     verify_block: proc do |value|
+                                        v = File.expand_path(value.to_s)
+                                        UI.user_error!("Player Path not found at path '#{v}'") unless File.exist?(v)
+                                     end),     
         FastlaneCore::ConfigItem.new(key: :logFile ,
                                      short_option: "-l",
                                      optional: true,
@@ -99,7 +102,50 @@ module Unity3d
                                     verify_block: proc do |value|
                                       v = File.expand_path(value.to_s)
                                       UI.user_error!("Player Path not found at path '#{v}'") unless File.exist?(v)
-                                    end),        
+                                    end),               
+        FastlaneCore::ConfigItem.new(key: :buildWebPlayer ,
+                                     env_name: "UNITY3D_BUILD_WEB_PLAYER",
+                                     optional: true,
+                                     description: "Build a WebPlayer (e\.g\. -buildWebPlayer path/to/your/build)",
+                                     verify_block: proc do |value|
+                                        v = File.expand_path(value.to_s)
+                                        UI.user_error!("WebPlayer Path not found at path '#{v}'") unless File.exist?(v)
+                                     end),            
+        FastlaneCore::ConfigItem.new(key: :buildWebPlayerStreamed  ,
+                                     env_name: "UNITY3D_BUILD_WEB_PLAYER_STREAMED",
+                                     optional: true,
+                                     description: "Build a Streamed WebPlayer (e\.g\. -buildWebPlayerStreamed path/to/your/build)",
+                                     verify_block: proc do |value|
+                                        v = File.expand_path(value.to_s)
+                                        UI.user_error!("Streamed webPlayer Path not found at path '#{v}'") unless File.exist?(v)
+                                     end),           
+        FastlaneCore::ConfigItem.new(key: :buildWindowsPlayer   ,
+                                     env_name: "UNITY3D_BUILD_WINDOWS_PLAYER",
+                                     optional: true,
+                                     description: "Build a 32-bit standalone Windows player (e\.g\. -buildWindowsPlayer path/to/your/build.exe)",
+                                     verify_block: proc do |value|
+                                        v = File.expand_path(value.to_s)
+                                        UI.user_error!("Windows player Path not found at path '#{v}'") unless File.exist?(v)
+                                     end),           
+        FastlaneCore::ConfigItem.new(key: :buildWindows64Player    ,
+                                     env_name: "UNITY3D_BUILD_WINDOWS_64PLAYER",
+                                     optional: true,
+                                     description: "Build a 64-bit standalone Windows player (e\.g\. -buildWindowsPlayer path/to/your/build.exe)",
+                                     verify_block: proc do |value|
+                                        v = File.expand_path(value.to_s)
+                                        UI.user_error!("Windows 64bit player Path not found at path '#{v}'") unless File.exist?(v)
+                                     end),     
+
+       
+        FastlaneCore::ConfigItem.new(key: :forceFree,
+                                     env_name: "UNITY3D_FORCE_FRES",
+                                     optional: true,
+                                     description: "Make the editor run as if there is a free Unity license on the machine, even if a Unity Pro license is installed\."),           
+        FastlaneCore::ConfigItem.new(key: :returnlicense    ,
+                                     env_name: "UNITY3D_RETURNLICENSE",
+                                     optional: true,
+                                     description: "Return the currently active license to the license server\. Please allow a few seconds before license file is removed, as Unity needs to communicate with the license server\. This option is new in Unity 5\.0\.",),    
+        # fastlane optional
         FastlaneCore::ConfigItem.new(key: :silent,
                                      short_option: "-a",
                                      env_name: "UNITY3D_SILENT",

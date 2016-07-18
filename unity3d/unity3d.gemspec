@@ -38,5 +38,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "yard", "~> 0.8.7.4"
   spec.add_development_dependency "webmock", "~> 1.19.0"
   spec.add_development_dependency "coveralls"
-  spec.add_development_dependency "file-tail", '~> 1.2.0'
+  spec.add_development_dependency "file-tail", '~> 1.1.1'
 end
