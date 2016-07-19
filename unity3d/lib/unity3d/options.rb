@@ -29,6 +29,7 @@ module Unity3d
         FastlaneCore::ConfigItem.new(key: :logFile ,
                                      short_option: "-l",
                                      optional: true,
+                                     default_value: "out.log",
                                      env_name: "UNITY3D_LOGFILE",
                                      description: "Specify where the Editor or Windows/Linux/OSX standalone log file will be written"), 
         FastlaneCore::ConfigItem.new(key: :nographics ,
