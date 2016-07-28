@@ -48,6 +48,7 @@ module Unity3d
 
         options << "-force-free" if config[:forceFree]
         options << "-returnlicense" if config[:returnlicense]
+        options << "#{config[:customBuildParam]}" if config[:customBuildParam]
         
         options
       end

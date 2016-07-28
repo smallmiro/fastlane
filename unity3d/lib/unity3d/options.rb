@@ -5,7 +5,6 @@ module Unity3d
     def self.available_options
       [ 
         FastlaneCore::ConfigItem.new(key: :buildTarget,
-                                     short_option: "-b",
                                      optional: false,
                                      env_name: "UNITY3D_BUILD_TARGET",
                                      description: "Allows the selection of an active build target before a project is loaded Possible options are: win32, win64, osx, linux, linux64, ios, android, web, webstreamed, webgl, xbox360, xboxone, ps3, ps4, psp2, wsa, wp8, tizen, samsungtv"),
@@ -46,11 +45,11 @@ module Unity3d
                                      optional: true,
                                      env_name: "UNITY3D_USERNAME",
                                      description: "The username of the user - needed when activating\. This option is new in Unity 5\.1"),     
-        FastlaneCore::ConfigItem.new(key: :password ,
-                                     short_option: "-p",
+        FastlaneCore::ConfigItem.new(key: :executeMethod  ,
                                      optional: true,
-                                     env_name: "UNITY3D_PASSWORD",
-                                     description: "The password of the user - needed when activating\. This option is new in Unity 5\.1"),                                                                                  
+                                     env_name: "UNITY3D_EXECUTE_METHOD",
+                                     description: "Execute the static method as soon as Unity is started, the project is open and after the optional asset server update has been performed\. This can be used to do continous integration, perform Unit Tests, make builds, prepare some data, etc\. If you want to return an error from the commandline process you can either throw an exception which will cause Unity to exit with 1 or else call EditorApplication.Exit with a non-zero code\. If you want to pass parameters you can add them to the command line and retrieve them inside the method using System\.Environment\.GetCommandLineArgs\. To use -executeMethod, you need to place the enclosing script in an Editor folder\. The method to be executed must be defined as static"),     
+                                                                                      
         # Very optional
         FastlaneCore::ConfigItem.new(key: :assetServerUpdate ,
                                       optional: true,
@@ -82,7 +81,7 @@ module Unity3d
                                     end),
         FastlaneCore::ConfigItem.new(key: :buildOSXPlayer   ,
                                     env_name: "UNITY3D_BUILD_OSX_PLAYER",
-                                    description: "Build a 32-bit standalone Mac OSX player (eg -buildOSXPlayer path/to/your/build.app)",
+                                    description: "Build a 32-bit standalone Mac OSX player (eg -buildOSXPlayer path/to/your/build\.app)",
                                     optional: true,
                                     verify_block: proc do |value|
                                       v = File.expand_path(value.to_s)
@@ -90,7 +89,7 @@ module Unity3d
                                     end),
         FastlaneCore::ConfigItem.new(key: :buildOSX64Player    ,
                                     env_name: "UNITY3D_BUILD_OSX64_PLAYER",
-                                    description: "Build a 64-bit standalone Mac OSX player (eg -buildOSX64Player path/to/your/build.app)",
+                                    description: "Build a 64-bit standalone Mac OSX player (eg -buildOSX64Player path/to/your/build\.app)",
                                     optional: true,
                                     verify_block: proc do |value|
                                       v = File.expand_path(value.to_s)
@@ -98,7 +97,7 @@ module Unity3d
                                     end),
         FastlaneCore::ConfigItem.new(key: :buildOSXUniversalPlayer     ,
                                     env_name: "UNITY3D_BUILD_OSXUNIVERSAL_PLAYER",
-                                    description: "Build a combined 32-bit and 64-bit standalone Mac OSX player (eg -buildOSXUniversalPlayer path/to/your/build.app)",
+                                    description: "Build a combined 32-bit and 64-bit standalone Mac OSX player (eg -buildOSXUniversalPlayer path/to/your/build\.app)",
                                     optional: true,
                                     verify_block: proc do |value|
                                       v = File.expand_path(value.to_s)
@@ -123,7 +122,7 @@ module Unity3d
         FastlaneCore::ConfigItem.new(key: :buildWindowsPlayer   ,
                                      env_name: "UNITY3D_BUILD_WINDOWS_PLAYER",
                                      optional: true,
-                                     description: "Build a 32-bit standalone Windows player (e\.g\. -buildWindowsPlayer path/to/your/build.exe)",
+                                     description: "Build a 32-bit standalone Windows player (e\.g\. -buildWindowsPlayer path/to/your/build\.exe)",
                                      verify_block: proc do |value|
                                         v = File.expand_path(value.to_s)
                                         UI.user_error!("Windows player Path not found at path '#{v}'") unless File.exist?(v)
@@ -131,28 +130,33 @@ module Unity3d
         FastlaneCore::ConfigItem.new(key: :buildWindows64Player    ,
                                      env_name: "UNITY3D_BUILD_WINDOWS_64PLAYER",
                                      optional: true,
-                                     description: "Build a 64-bit standalone Windows player (e\.g\. -buildWindowsPlayer path/to/your/build.exe)",
+                                     description: "Build a 64-bit standalone Windows player (e\.g\. -buildWindowsPlayer path/to/your/build\.exe)",
                                      verify_block: proc do |value|
                                         v = File.expand_path(value.to_s)
                                         UI.user_error!("Windows 64bit player Path not found at path '#{v}'") unless File.exist?(v)
                                      end),     
-
+                                     
+        FastlaneCore::ConfigItem.new(key: :customBuildParam,
+                                     env_name: "UNITY3D_CUSTOM_PARAM",
+                                     optional: true,
+                                     description: "User extra build paramerter"),     
        
         FastlaneCore::ConfigItem.new(key: :forceFree,
                                      env_name: "UNITY3D_FORCE_FRES",
                                      optional: true,
-                                     description: "Make the editor run as if there is a free Unity license on the machine, even if a Unity Pro license is installed\."),           
+                                     description: "Make the editor run as if there is a free Unity license on the machine, even if a Unity Pro license is installed"),
+
         FastlaneCore::ConfigItem.new(key: :returnlicense    ,
                                      env_name: "UNITY3D_RETURNLICENSE",
                                      optional: true,
-                                     description: "Return the currently active license to the license server\. Please allow a few seconds before license file is removed, as Unity needs to communicate with the license server\. This option is new in Unity 5\.0\.",),    
+                                     description: "Return the currently active license to the license server\. Please allow a few seconds before license file is removed, as Unity needs to communicate with the license server\. This option is new in Unity 5\.0"),    
         # fastlane optional
         FastlaneCore::ConfigItem.new(key: :silent,
                                      short_option: "-a",
                                      env_name: "UNITY3D_SILENT",
                                      description: "Hide all information that's not necessary while building",
                                      default_value: false,
-                                     is_string: false),
+                                     is_string: false)
 
       ]
     end

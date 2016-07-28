@@ -22,10 +22,9 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_dependency 'fastlane_core', '>= 0.43.3', '< 1.0.0' # all shared code and dependencies
-  spec.add_dependency 'xcpretty', '>= 0.2.1' # pretty xcodebuild output
   spec.add_dependency 'terminal-table' # print out build information
-  spec.add_dependency 'plist' # Generate the Xcode config plist file
   spec.add_dependency 'rubyzip', '>= 1.1.7' # fix swift/ipa
+  spec.add_dependency "file-tail", '~> 1.1.1'
 
   # Development only
   spec.add_development_dependency "bundler"
@@ -38,5 +37,4 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "yard", "~> 0.8.7.4"
   spec.add_development_dependency "webmock", "~> 1.19.0"
   spec.add_development_dependency "coveralls"
-  spec.add_development_dependency "file-tail", '~> 1.1.1'
 end
