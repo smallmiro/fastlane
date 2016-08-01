@@ -24,7 +24,6 @@ module Unity3d
         options = []
         options << "-batchmode "
         options << "-quit "
-        options << "-cleanedLogFile"
         options << "-serial '#{config[:serial]}'" if config[:serial]
         options << "-nographics" if config[:nographics]
         options << "-projectPath '#{config[:project]}'" if config[:project]
